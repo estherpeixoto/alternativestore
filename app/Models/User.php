@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -43,4 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+	public function phoneNumber($telephone) {
+		if (strlen($telephone) == 11) {
+			echo '(' . substr($telephone, 0, 2) . ') ' . substr($telephone, 2, 5) . '-' . substr($telephone, 7, 4);
+		}
+	}
 }

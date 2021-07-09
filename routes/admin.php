@@ -24,10 +24,11 @@ Route::prefix('dashboard')->middleware(['auth'])
 
 		Route::prefix('usuarios')->group(function() {
 			Route::get('/', [User::class, 'index'])->name('user.list');
-
-			Route::get('/incluir', [User::class, 'form']);
-
-			Route::post('/incluir', [User::class, 'create'])->name('user.create');
+			Route::get('/cadastrar', [User::class, 'form']);
+			Route::get('/{action}/{id}', [User::class, 'form']);
+			Route::post('/', [User::class, 'store']);
+			Route::put('/{id}', [User::class, 'edit']);
+			Route::delete('/{id}', [User::class, 'destroy']);
 		});
 
 		Route::get('/minha-conta', function () {

@@ -1,82 +1,83 @@
 <x-app-layout>
+	<x-slot name='breadcrumbs'>
+		{{ Breadcrumbs::render('users.form', $user->name ?? '') }}
+	</x-slot>
+
 	<x-slot name="header">
 		{{ __('Usuários') }}
 	</x-slot>
 
-	<div class="overflow-x-auto">
-		<form method="POST" action="{{ route('user.create') }}">
-			@csrf
+	<form method="POST" action="/dashboard/usuarios{{ isset($user->id) ? "/$user->id" : '' }}">
+		@csrf
 
-			<div>
-				<x-label for="name" :value="__('Nome')" />
+		@if (isset($action))
+			@if ($action == 'alterar')
+				@method('PUT')
+			@elseif ($action == 'excluir')
+				@method('DELETE')
+			@endif
+		@endif
 
-				<x-input id="name"
-					class="block mt-1 w-full"
-					type="text"
-					name="name"
-					:value="old('name')"
-					placeholder="Nome completo"
-					required
-					autofocus
-				/>
-			</div>
+		<div>
+			<x-label for="name" :value="__('Nome')" />
+			<x-input id="name"
+				type="text"
+				name="name"
+				value="{{ old('name') ?? $user->name ?? '' }}"
+				placeholder="Nome completo"
+				maxlength="50"
+				required
+				autofocus
+			/>
+		</div>
 
-			<div class="mt-5">
-				<x-label for="email" :value="__('E-mail')" />
+		<div class="mt-5">
+			<x-label for="email" :value="__('E-mail')" />
+			<x-input id="email"
+				type="text"
+				name="email"
+				value="{{ old('email') ?? $user->email ?? '' }}"
+				placeholder="seu.email@email.com"
+				maxlength="255"
+				required
+			/>
+		</div>
 
-				<x-input id="email"
-					class="block mt-1 w-full"
-					type="text"
-					name="email"
-					:value="old('email')"
-					placeholder="seu.email@email.com"
-					required
-				/>
-			</div>
+		<div class="mt-5">
+			<x-label for="password" :value="__('Senha')" />
+			<x-input id="password"
+				type="password"
+				name="password"
+				value="{{ old('password') ?? $user->password ?? '' }}"
+				required
+			/>
+		</div>
 
-			<div class="mt-5">
-				<x-label for="password" :value="__('Senha')" />
+		<div class="mt-5">
+			<x-label for="cpf" :value="__('CPF')" />
+			<x-input id="cpf"
+				type="text"
+				name="cpf"
+				value="{{ old('cpf') ?? $user->cpf ?? '' }}"
+				placeholder="000.000.000-00"
+				maxlength="11"
+				required
+				data-inputmask="'mask': '999.999.999-99'"
+			/>
+		</div>
 
-				<x-input id="password"
-					class="block mt-1 w-full"
-					type="password"
-					name="password"
-					:value="old('password')"
-					required
-				/>
-			</div>
+		<div class="mt-5">
+			<x-label for="telephone" :value="__('Telefone')" />
+			<x-input id="telephone"
+				type="text"
+				name="telephone"
+				value="{{ old('telephone') ?? $user->telephone ?? '' }}"
+				placeholder="(00) 0 0000-0000"
+				maxlength="11"
+				required
+			/>
+		</div>
 
-			<div class="mt-5">
-				<x-label for="cpf" :value="__('CPF')" />
-
-				<x-input id="cpf"
-					class="block mt-1 w-full"
-					type="text"
-					name="cpf"
-					:value="old('cpf')"
-					placeholder="000.000.000-00"
-					required
-				/>
-			</div>
-
-			<div class="mt-5">
-				<x-label for="telephone" :value="__('Telefone')" />
-
-				<x-input id="telephone"
-					class="block mt-1 w-full"
-					type="text"
-					name="telephone"
-					:value="old('telephone')"
-					placeholder="(00) 0 0000-0000"
-					required
-				/>
-			</div>
-
-			<div class="flex items-center justify-end mt-5">
-				<x-button color="blue">
-					{{ __('Cadastrar') }}
-				</x-button>
-			</div>
-		</form>
-	</div>
+		<x-admin.submit action="{{ $action ?? 'cadastrar' }}" />
+	</form>
 </x-app-layout>
