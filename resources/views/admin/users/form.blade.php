@@ -81,3 +81,13 @@
 		<x-admin.submit action="{{ $action ?? 'cadastrar' }}" />
 	</form>
 </x-app-layout>
+
+<script src="https://raw.githubusercontent.com/RobinHerbots/Inputmask/5.x/dist/inputmask.min.js"></script>
+
+<script>
+	var selector = document.getElementById("telephone");
+
+	var im = new Inputmask("(99) 99999-9999");
+	console.log(im)
+	im.mask(selector);
+</script>

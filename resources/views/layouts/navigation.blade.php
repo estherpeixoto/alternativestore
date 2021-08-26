@@ -68,7 +68,7 @@
 			{{ __('Dashboard') }}
 		</x-responsive-nav-link>
 
-		<x-responsive-nav-link :href="route('pedidos')" :active="request()->routeIs('pedidos')">
+		<x-responsive-nav-link :href="route('order.list')" :active="request()->routeIs('order.list')">
 			<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
 			</svg>
@@ -78,18 +78,25 @@
 		<x-navigation.nav-group>
 			<x-slot name='title'>Cadastros</x-slot>
 
-			<x-responsive-nav-link :href="route('produtos')" :active="request()->routeIs('produtos')">
+			<x-responsive-nav-link :href="route('product.list')" :active="request()->routeIs('product.list')">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
 				</svg>
 				{{ __('Produtos') }}
 			</x-responsive-nav-link>
 
-			<x-responsive-nav-link :href="route('categorias')" :active="request()->routeIs('categorias')">
+			<x-responsive-nav-link :href="route('category.list')" :active="request()->routeIs('category.list')">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 				</svg>
 				{{ __('Categorias') }}
+			</x-responsive-nav-link>
+
+			<x-responsive-nav-link :href="route('size.list')" :active="request()->routeIs('size.list')">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+				</svg>
+				{{ __('Tamanhos') }}
 			</x-responsive-nav-link>
 
 			<x-responsive-nav-link :href="route('user.list')" :active="request()->routeIs('user.list')">

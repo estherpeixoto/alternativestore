@@ -12,7 +12,7 @@ switch ($action) {
 @endphp
 
 <div class="flex items-center justify-end mt-5">
-	<x-button color="{{ $btnColor }}">
+	<x-button type="submit" color="{{ $btnColor }}">
 		{{ $action }}
 	</x-button>
 </div>

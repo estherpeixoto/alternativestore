@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController as Product;
+use App\Http\Controllers\Admin\CategoryController as Category;
+use App\Http\Controllers\Admin\SizeController as Size;
 use App\Http\Controllers\Admin\UserController as User;
 use Illuminate\Support\Facades\Route;
 
@@ -10,19 +13,44 @@ Route::prefix('dashboard')->middleware(['auth'])
 			return view('admin/dashboard');
 		})->name('dashboard');
 
-		Route::get('/pedidos', function () {
-			return view('admin/orders');
-		})->name('pedidos');
+		Route::prefix('pedidos')->group(function () {
+			Route::get('/', [Order::class, 'index'])->name('order.list');
+			Route::get('/cadastrar', [Order::class, 'form']);
+			Route::get('/{action}/{id}', [Order::class, 'form']);
+			Route::post('/', [Order::class, 'store']);
+			Route::put('/{id}', [Order::class, 'edit']);
+			Route::delete('/{id}', [Order::class, 'destroy']);
+		});
 
-		Route::get('/produtos', function () {
-			return view('admin/products');
-		})->name('produtos');
+		Route::prefix('produtos')->group(function () {
+			Route::get('/', [Product::class, 'index'])->name('product.list');
+			Route::get('/cadastrar', [Product::class, 'form']);
+			Route::post('/upload/{id?}', [Product::class, 'upload']);
+			Route::get('/{action}/{id}', [Product::class, 'form']);
+			Route::post('/', [Product::class, 'store']);
+			Route::put('/{id}', [Product::class, 'edit']);
+			Route::delete('/{id}', [Product::class, 'destroy']);
+		});
 
-		Route::get('/categorias', function () {
-			return view('admin/categories');
-		})->name('categorias');
+		Route::prefix('categorias')->group(function () {
+			Route::get('/', [Category::class, 'index'])->name('category.list');
+			Route::get('/cadastrar', [Category::class, 'form']);
+			Route::get('/{action}/{id}', [Category::class, 'form']);
+			Route::post('/', [Category::class, 'store']);
+			Route::put('/{id}', [Category::class, 'edit']);
+			Route::delete('/{id}', [Category::class, 'destroy']);
+		});
 
-		Route::prefix('usuarios')->group(function() {
+		Route::prefix('tamanhos')->group(function () {
+			Route::get('/', [Size::class, 'index'])->name('size.list');
+			Route::get('/cadastrar', [Size::class, 'form']);
+			Route::get('/{action}/{id}', [Size::class, 'form']);
+			Route::post('/', [Size::class, 'store']);
+			Route::put('/{id}', [Size::class, 'edit']);
+			Route::delete('/{id}', [Size::class, 'destroy']);
+		});
+
+		Route::prefix('usuarios')->group(function () {
 			Route::get('/', [User::class, 'index'])->name('user.list');
 			Route::get('/cadastrar', [User::class, 'form']);
 			Route::get('/{action}/{id}', [User::class, 'form']);
@@ -38,5 +66,4 @@ Route::prefix('dashboard')->middleware(['auth'])
 		Route::get('/trocar-senha', function () {
 			return view('admin/change-password');
 		})->name('trocar-senha');
-
 	});
