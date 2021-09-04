@@ -16,13 +16,15 @@
 </head>
 
 <body x-data="{ sidebarOpen: false }" class='h-screen' :class="{'overflow-hidden': sidebarOpen}">
-    @include('layouts.navbar')
+    <div class="flex flex-col h-full">
+        @include('layouts.navbar')
 
-    <div class='flex flex-col flex-1 font-sans antialiased text-gray-900'>
-        {{ $slot }}
+        <div class='flex flex-col flex-1 font-sans antialiased text-gray-900'>
+            {{ $slot }}
+        </div>
+
+        @include('layouts.footer')
     </div>
-
-    @include('layouts.footer')
 </body>
 
 </html>
