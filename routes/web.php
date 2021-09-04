@@ -16,6 +16,13 @@ use App\Http\Controllers\Home;
 
 Route::get('/', [Home::class, 'index'])->name('home');
 
-require __DIR__.'/auth.php';
+Route::prefix('produtos')->group(function () {
+    Route::get('/', [Home::class, 'index']);
+    Route::get('/{category}', [Home::class, 'products']);
+});
 
-require __DIR__.'/admin.php';
+Route::get('/search', [Home::class, 'search']);
+
+require __DIR__ . '/auth.php';
+
+require __DIR__ . '/admin.php';

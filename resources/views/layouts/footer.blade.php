@@ -1,13 +1,33 @@
 
 <footer class="text-gray-600 body-font">
-    <div class="container flex flex-col flex-wrap justify-center px-5 py-5 mx-auto md:items-center md:flex-row md:justify-between md:flex-nowrap">
-		<a class="hidden md:block" href="/">
+    <div class="flex flex-col flex-wrap justify-center px-8 py-5 mx-auto lg:items-center lg:flex-row lg:justify-between lg:flex-nowrap">
+		<a class="hidden lg:block" href="/">
             <x-application-logo
                 class="block w-auto h-3.5 fill-current text-center"
             />
         </a>
 
-        <ul class="flex flex-col flex-wrap gap-4 text-xs text-center uppercase list-none md:flex-row">
+        <ul class="flex flex-col flex-wrap justify-center gap-4 text-xs text-center uppercase list-none sm:flex-row">
+			@auth
+				@if (Auth::user()->type == 'A')
+					<li>
+						<a href="/dashboard" class="text-gray-600 hover:text-gray-800">Dashboard</a>
+					</li>
+				@else
+					<li>
+						<a href="/minha-conta" class="text-gray-600 hover:text-gray-800">Minha conta</a>
+					</li>
+				@endif
+			@else
+				<li>
+					<a href="/register" class="text-gray-600 hover:text-gray-800">Cadastre-se</a>
+				</li>
+
+				<li>
+					<a href="/login" class="text-gray-600 hover:text-gray-800">Login</a>
+				</li>
+			@endauth
+
             <li>
                 <a href="/sobre-nos" class="text-gray-600 hover:text-gray-800">Sobre nós</a>
             </li>
@@ -31,7 +51,7 @@
     </div>
 
     <div class="bg-gray-100">
-        <div class="container flex flex-col flex-wrap px-5 py-4 mx-auto sm:flex-row">
+        <div class="flex flex-col flex-wrap px-8 py-4 mx-auto sm:flex-row">
             <p class="text-xs text-center text-gray-500 sm:text-left">© 2021, ALTERNATIVE STORE. TODOS OS DIREITOS RESERVADOS.</p>
 
             <span class="inline-flex justify-center mt-2 sm:ml-auto sm:mt-0 sm:justify-start">

@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		View::share('categories', DB::select('select * from categories'));
+		View::share('categories', DB::select('select * from categories order by description'));
 	}
 }

@@ -1,4 +1,4 @@
-@props(['color' => 'dark'])
+@props(['color' => 'dark', 'fullWidth' => "false"])
 
 @php
 switch ($color) {
@@ -19,7 +19,7 @@ switch ($color) {
 
 <button {{ $attributes->merge([
 	'type' => 'submit',
-	'class' => "inline-flex items-center justify-center w-full px-4 py-4 text-xs font-semibold tracking-widest uppercase transition duration-150 ease-in-out border border-transparent rounded-md sm:w-auto focus:ring focus:outline-none disabled:opacity-25 $btnColor"
+	'class' => ($fullWidth == "true" ? '' : 'sm:w-auto ') . "inline-flex items-center justify-center w-full px-4 py-4 text-xs font-semibold tracking-widest uppercase transition duration-150 ease-in-out border border-transparent rounded-md focus:ring focus:outline-none disabled:opacity-25 $btnColor"
 	]) }}
 >
     {{ $slot }}
