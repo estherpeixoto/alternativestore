@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Home extends Controller
 {
-    public function index()
+	public function index()
 	{
-		return view('home');
+		$products = DB::select('select * from allproducts');
+
+		return view('home', compact('products'));
 	}
 }
