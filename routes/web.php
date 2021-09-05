@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home;
+use App\Http\Controllers\MyAccount;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,16 @@ Route::get('/', [Home::class, 'index'])->name('home');
 
 Route::prefix('produtos')->group(function () {
     Route::get('/', [Home::class, 'index']);
-    Route::get('/{category}', [Home::class, 'products']);
+    Route::get('/{category}', [Home::class, 'allProducts']);
 });
 
 Route::get('/search', [Home::class, 'search']);
+
+Route::prefix('minha-conta')->group(function () {
+    Route::get('/', [MyAccount::class, 'index']);
+    Route::get('/pedidos', [MyAccount::class, 'orders']);
+    Route::get('/dados', [MyAccount::class, 'profile']);
+});
 
 require __DIR__ . '/auth.php';
 
