@@ -8,5 +8,5 @@
 />
 
 @error($attributes['name'])
-    <small class='text-red-500'>{{ $message }}</small>
+    <small class='text-red-500 mt-3.5'>{{ $message }}</small>
 @enderror

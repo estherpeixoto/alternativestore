@@ -48,4 +48,12 @@ class User extends Authenticatable
 			echo '(' . substr($telephone, 0, 2) . ') ' . substr($telephone, 2, 5) . '-' . substr($telephone, 7, 4);
 		}
 	}
+
+	public static function clearTelephone($telephone) {
+		return str_replace(' ', '', str_replace('(', '', str_replace(')', '', str_replace('-', '', $telephone))));
+	}
+
+	public static function clearCpf($cpf) {
+		return str_replace('.', '', str_replace('-', '', $cpf));
+	}
 }

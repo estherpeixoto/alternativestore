@@ -36,16 +36,16 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
-            'cpf' => 'required|string|max:11|unique:users',
-            'telephone' => 'required|string|max:11',
+            'cpf' => 'required|string|max:14|unique:users',
+            'telephone' => 'required|string|max:16',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'cpf' => $request->cpf,
-            'telephone' => $request->telephone,
+            'cpf' => User::clearCpf($request->cpf),
+            'telephone' => User::clearTelephone($request->telephone),
             'type' => 'C'
         ]);
 

@@ -13,10 +13,10 @@ class Home extends Controller
 		return view('home', compact('products'));
 	}
 
-	public function products($category = '')
+	public function allProducts($category = '', $product = '')
 	{
 		$products = DB::select(
-			'select * from allproducts' . (!empty($category) ? " where category like '$category'" : '')
+			'select * from allproducts' . (!empty($category) ? " where category like '%$category%'" : '')
 		);
 
 		return view('home', compact('products', 'category'));
@@ -27,7 +27,7 @@ class Home extends Controller
 		$search = $request->q;
 
 		$products = DB::select(
-			'select * from allproducts' . (!empty($search) ? " where title like '$search'" : '')
+			'select * from allproducts' . (!empty($search) ? " where title like '%$search%'" : '')
 		);
 
 		return view('home', compact('products', 'search'));

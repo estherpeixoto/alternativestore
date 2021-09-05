@@ -1,0 +1,1 @@
+<img {!! $attributes->merge(['class' => '']) !!} src="{{ asset('images/icons/facebook-logo.png') }}" />
