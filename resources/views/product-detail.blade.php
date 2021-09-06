@@ -86,12 +86,13 @@
 										type="radio"
 										class="hidden"
 										x-model="selectedSize"
+										required
 									/>
 
 									<label :for="'size_' + size.id"
 										x-text="size.description"
-										:class="{ 'text-white bg-gray-900 border-gray-900': selectedSize == size.id, 'text-gray-500 border-gray-100': selectedSize != size.id }"
-										class="block px-4 py-2 text-sm font-medium tracking-widest text-center uppercase transition duration-150 ease-in-out border rounded-md cursor-pointer"
+										:class="{ 'font-semibold border-gray-800': selectedSize == size.id, 'font-medium text-gray-500 border-gray-100': selectedSize != size.id }"
+										class="block px-4 py-2 text-sm tracking-widest text-center uppercase transition duration-150 ease-in-out border rounded-md cursor-pointer"
 									></label>
 								</div>
 							</template>
