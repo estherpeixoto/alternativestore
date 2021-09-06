@@ -20,6 +20,7 @@ Route::get('/', [Home::class, 'index'])->name('home');
 Route::prefix('produtos')->group(function () {
     Route::get('/', [Home::class, 'index']);
     Route::get('/{category}', [Home::class, 'allProducts']);
+    Route::get('/{category}/{product}', [Home::class, 'showProduct']);
 });
 
 Route::get('/search', [Home::class, 'search']);

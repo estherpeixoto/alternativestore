@@ -13,6 +13,30 @@ class Home extends Controller
 		return view('home', compact('products'));
 	}
 
+	public function showProduct($category = '', $product = '')
+	{
+		// Produto
+		$product = DB::table('products')->where('title', 'like', '%' . str_replace('-', ' ', $product) . '%')->first();
+
+		// Imagens do produto
+		$productImages = [];
+
+		foreach (DB::table('product_images')->where('product_id', $product->id)->get() as $k => $images) {
+			$productImages[$k] = (object) [
+				'id' => $k,
+				'filename' => asset("storage/products/$images->filename")
+			];
+		}
+
+		// Montar tabela de tamanhos
+		$productSizes = DB::table('product_sizes')->where('product_id', $product->id)->get();
+
+		// Listar todos os tamanhos
+		$sizes = DB::table('sizes')->get(['id', 'description']);
+
+		return view('product-detail', compact('product', 'productImages', 'productSizes', 'sizes'));
+	}
+
 	public function allProducts($category = '', $product = '')
 	{
 		$products = DB::select(
