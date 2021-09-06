@@ -65,7 +65,7 @@
                 <h1 class="text-2xl font-medium text-gray-900 uppercase">{{ $product->title }}</h1>
                 <h2 class="text-xl text-gray-900">R$ {{ number_format($product->price, 2, ',', '.') }}</h2>
 
-				<form method="POST" action="/carrinho/adicionar">
+				<form method="POST" action="/sacola/adicionar">
 					@csrf
 
 					<input type="hidden" name="product" value={{ $product->id }} />
