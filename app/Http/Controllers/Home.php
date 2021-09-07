@@ -9,7 +9,7 @@ class Home extends Controller
 {
 	public function index()
 	{
-		$products = DB::select('select * from allproducts');
+		$products = DB::select('select * from all_products');
 		return view('home', compact('products'));
 	}
 
@@ -18,29 +18,33 @@ class Home extends Controller
 		// Produto
 		$product = DB::table('products')->where('title', 'like', '%' . str_replace('-', ' ', $product) . '%')->first();
 
-		// Imagens do produto
-		$productImages = [];
+		if ($product) {
+			// Imagens do produto
+			$productImages = [];
 
-		foreach (DB::table('product_images')->where('product_id', $product->id)->get() as $k => $images) {
-			$productImages[$k] = (object) [
-				'id' => $k,
-				'filename' => asset("storage/products/$images->filename")
-			];
+			foreach (DB::table('product_images')->where('product_id', $product->id)->get() as $k => $images) {
+				$productImages[$k] = (object) [
+					'id' => $k,
+					'filename' => asset("storage/products/$images->filename")
+				];
+			}
+
+			// Montar tabela de tamanhos
+			$productSizes = DB::table('product_sizes')->where('product_id', $product->id)->get();
+
+			// Listar todos os tamanhos
+			$sizes = DB::table('sizes')->get(['id', 'description']);
+
+			return view('product-detail', compact('product', 'productImages', 'productSizes', 'sizes'));
 		}
 
-		// Montar tabela de tamanhos
-		$productSizes = DB::table('product_sizes')->where('product_id', $product->id)->get();
-
-		// Listar todos os tamanhos
-		$sizes = DB::table('sizes')->get(['id', 'description']);
-
-		return view('product-detail', compact('product', 'productImages', 'productSizes', 'sizes'));
+		return redirect('/');
 	}
 
 	public function allProducts($category = '', $product = '')
 	{
 		$products = DB::select(
-			'select * from allproducts' . (!empty($category) ? " where category like '%$category%'" : '')
+			'select * from all_products' . (!empty($category) ? " where category like '%$category%'" : '')
 		);
 
 		return view('home', compact('products', 'category'));
@@ -51,7 +55,7 @@ class Home extends Controller
 		$search = $request->q;
 
 		$products = DB::select(
-			'select * from allproducts' . (!empty($search) ? " where title like '%$search%'" : '')
+			'select * from all_products' . (!empty($search) ? " where title like '%$search%'" : '')
 		);
 
 		return view('home', compact('products', 'search'));
