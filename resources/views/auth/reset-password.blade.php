@@ -9,7 +9,7 @@
                 @csrf
 
                 <input type="hidden" name="token" value="{{ $request->route('token') }}" />
-                <input type="hidden" name="email" :value="old('email', $request->email)" required />
+                <input type="hidden" name="email" value="{{ old('email', $request->email) }}" required />
 
                 <div>
                     <x-input id="password" class="block w-full mb-3.5" type="password" name="password" required placeholder="Senha" autofocus />
