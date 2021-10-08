@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\MyAccount;
+use App\Http\Controllers\Bag;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,12 @@ Route::prefix('minha-conta')->group(function () {
     Route::get('/', [MyAccount::class, 'index']);
     Route::get('/pedidos', [MyAccount::class, 'orders']);
     Route::get('/dados', [MyAccount::class, 'profile']);
+});
+
+Route::prefix('sacola')->group(function () {
+    Route::get('/', [Bag::class, 'index'])->name('sacola');
+    Route::post('/adicionar', [Bag::class, 'store']);
+    Route::delete('/remover/{id}', [Bag::class, 'destroy']);
 });
 
 require __DIR__ . '/auth.php';
