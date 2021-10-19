@@ -19,4 +19,6 @@ class Size extends Model
 	protected $fillable = [
 		'description'
 	];
+
+	public $timestamps = true;
 }

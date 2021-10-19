@@ -36,6 +36,8 @@ Route::prefix('sacola')->group(function () {
     Route::get('/', [Bag::class, 'index'])->name('sacola');
     Route::post('/adicionar', [Bag::class, 'store']);
     Route::delete('/remover/{id}', [Bag::class, 'destroy']);
+
+    Route::post('/alterar-tamanho', [Bag::class, 'changeSize']);
 });
 
 require __DIR__ . '/auth.php';

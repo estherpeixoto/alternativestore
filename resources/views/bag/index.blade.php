@@ -31,7 +31,7 @@
                                 <p class="font-semibold text-gray-900">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
 
                                 <div class="flex flex-col justify-between gap-3 mt-3 md:flex-row lg:mt-6">
-                                    <select
+                                    <select data-type='size' @change="handleSubmit($event, {{ $product->id }})"
                                         class="py-1 pl-2 pr-8 text-sm text-gray-500 transition-colors duration-200 ease-in-out bg-transparent border border-gray-300 rounded outline-none focus:ring-0 focus:border-gray-300 focus:bg-gray-50 w-min">
                                         @foreach ($sizes as $size)
 											<option value="{{ $size->id }}" {{ $size->id == $product->size_id ? 'selected' : '' }}>{{ $size->description }}</option>
@@ -66,17 +66,17 @@
 
                     <p class="flex justify-between text-sm text-gray-900 uppercase">
                         Subtotal:
-                        <span>R$ 0,00</span>
+                        <span>R$ <?= number_format($subtotal, 2, ',', '.') ?></span>
                     </p>
 
                     <p class="flex justify-between text-sm text-gray-900 uppercase">
-                        Entrega:
-                        <span>R$ 0,00</span>
+						Entrega:
+						<span>R$ <?= number_format($entrega, 2, ',', '.') ?></span>
                     </p>
 
                     <p class="flex justify-between text-sm font-semibold text-gray-900 uppercase">
                         Total:
-                        <span>R$ 0,00</span>
+                        <span>R$ <?= number_format($subtotal + $entrega, 2, ',', '.') ?></span>
                     </p>
 
                     <x-button>
@@ -92,3 +92,7 @@
         @endif
     </x-container>
 </x-guest-layout>
+
+<x-alert-modal />
+
+<script src="{{ asset('js/bag.js') }}"></script>
