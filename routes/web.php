@@ -34,6 +34,8 @@ Route::prefix('minha-conta')->group(function () {
 
 Route::prefix('sacola')->group(function () {
     Route::get('/', [Bag::class, 'index'])->name('sacola');
+    Route::get('/entrega', [Bag::class, 'deliver']);
+
     Route::post('/adicionar', [Bag::class, 'store']);
     Route::delete('/remover/{id}', [Bag::class, 'destroy']);
 

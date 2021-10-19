@@ -39,9 +39,14 @@ class Bag extends Controller
 		$sizes = Size::get();
 
 		$subtotal = DB::table('order_items')->where('order_id', $products[0]->order_id ?? null)->sum('price');
-		$entrega = 5;
+		$entrega = 0;
 
 		return view('bag/index', compact('products', 'sizes', 'subtotal', 'entrega'));
+	}
+
+	public function deliver()
+	{
+
 	}
 
 	public function store(Request $request)
@@ -67,6 +72,8 @@ class Bag extends Controller
 			if (is_null($order)) {
 				$order = Order::create([
 					'user_id' => Auth::user()->id,
+					'price_products' => $product->price,
+					'total' => $product->price
 				]);
 			}
 
