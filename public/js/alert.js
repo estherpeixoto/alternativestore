@@ -36,7 +36,7 @@ function changeModal({
 		document.getElementById("modal_primary_button").innerHTML =
 			primaryButtonText;
 		document.getElementById("modal_primary_button").className =
-			primaryButtonText;
+			theme.buttonColors[state];
 	} else {
 		document.getElementById("modal_primary_button").className = 'd-none';
 	}

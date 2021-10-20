@@ -26,7 +26,6 @@ function handleSubmit(event, id) {
 					state: 'success',
 					title: 'OK',
 					description: (type === 'size' ? 'Tamanho' : 'Quantidade') + ' alterado com sucesso',
-					primaryButtonText: 'OK',
 					secondaryButtonText: 'OK',
 				})
 			})
