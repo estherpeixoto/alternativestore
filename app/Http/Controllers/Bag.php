@@ -2,51 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Bag as Model;
 
 class Bag extends Controller
 {
-    public function index()
+	public function index()
 	{
-		if (is_null(Auth::user())) {
-			return redirect('/login');
+		$products = Model::products();
+
+		if (!session()->exists('order_id')) {
+			session(['order_id' => $products[0]->order_id]);
 		}
 
-		$products = DB::select(
-			"SELECT oi.id,
-				o.id AS order_id,
-				p.title,
-				p.price,
-				oi.size_id,
-				oi.quantity,
-				(SELECT filename
-				FROM product_images
-				WHERE product_id = oi.product_id
-				LIMIT 1) AS image
-			FROM order_items oi
-			INNER JOIN orders o ON o.id = oi.order_id
-			INNER JOIN products p ON oi.product_id = p.id
-			WHERE o.status = 'W' AND o.user_id = ?",
-			[Auth::user()->id]
-		);
-
+		$price_products = Model::priceProducts();
+		$price_delivery = Model::priceDelivery();
 		$sizes = Size::get();
 
-		$subtotal = DB::table('order_items')->where('order_id', $products[0]->order_id ?? null)->sum('price');
-		$entrega = 0;
-
-		return view('bag/index', compact('products', 'sizes', 'subtotal', 'entrega'));
+		return view('bag/index', compact('products', 'sizes', 'price_products', 'price_delivery'));
 	}
 
-	public function deliver()
+	public function delivery()
 	{
+		$price_products = Model::priceProducts();
 
+		if ($price_products <= 0) {
+			return redirect('/sacola');
+		}
+
+		$address = Model::address();
+		$price_delivery = Model::priceDelivery();
+
+		return view('bag/delivery', compact('address', 'price_products', 'price_delivery'));
+	}
+
+	public function storeAddress(Request $request)
+	{
+		dd([
+			str_replace('-', '', $request->postal_code),
+			$request->street,
+			$request->number,
+			$request->complement,
+			$request->neighbour,
+			$request->city,
+			$request->state,
+		]);
 	}
 
 	public function store(Request $request)
@@ -55,10 +59,7 @@ class Bag extends Controller
 			return redirect('/login')->with('error', 'Entre para adicionar um produto');
 		}
 
-		$request->validate([
-			'product' => 'required',
-			'selectedSize' => 'required'
-		]);
+		$request->validate(['product' => 'required', 'selectedSize' => 'required']);
 
 		$product = Product::find($request->product);
 
@@ -66,26 +67,7 @@ class Bag extends Controller
 			return redirect('/sacola')->with('error', 'Produto inexistente');
 		}
 
-		DB::transaction(function () use ($request, $product) {
-			$order = Order::where('user_id', Auth::user()->id)->first();
-
-			if (is_null($order)) {
-				$order = Order::create([
-					'user_id' => Auth::user()->id,
-					'price_products' => $product->price,
-					'total' => $product->price
-				]);
-			}
-
-			OrderItem::create([
-				'order_id' => $order->id,
-				'product_id' => (int) $request->product,
-				'size_id' => (int) $request->selectedSize,
-				'quantity' => 1,
-				'price' => $product->price,
-				'total' => $product->price
-			]);
-		});
+		Model::storeOrder($request, $product);
 
 		return redirect('/sacola')->with('success', 'Produto adicionado à sacola');
 	}
@@ -114,15 +96,11 @@ class Bag extends Controller
 				if ($orderItem->isDirty()) {
 					$orderItem->save();
 
-					return response()->json([
-						'message' => 'Size changed with success'
-					], 200);
+					return response()->json(['message' => 'Size changed with success'], 200);
 				}
 			}
 		}
 
-		return response()->json([
-			'message' => 'Ops'
-		], 400);
+		return response()->json(['message' => 'Ops'], 400);
 	}
 }

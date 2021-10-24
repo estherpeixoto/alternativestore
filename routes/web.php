@@ -32,9 +32,10 @@ Route::prefix('minha-conta')->group(function () {
     Route::get('/dados', [MyAccount::class, 'profile']);
 });
 
-Route::prefix('sacola')->group(function () {
+Route::prefix('sacola')->middleware('auth')->group(function () {
     Route::get('/', [Bag::class, 'index'])->name('sacola');
-    Route::get('/entrega', [Bag::class, 'deliver']);
+    Route::get('/entrega', [Bag::class, 'delivery']);
+    Route::post('/entrega', [Bag::class, 'storeAddress']);
 
     Route::post('/adicionar', [Bag::class, 'store']);
     Route::delete('/remover/{id}', [Bag::class, 'destroy']);

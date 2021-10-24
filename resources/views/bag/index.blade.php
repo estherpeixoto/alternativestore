@@ -66,17 +66,17 @@
 
                     <p class="flex justify-between text-sm text-gray-900 uppercase">
                         Subtotal:
-                        <span>R$ <?= number_format($subtotal, 2, ',', '.') ?></span>
+                        <span>R$ <?= number_format($price_products, 2, ',', '.') ?></span>
                     </p>
 
                     <p class="flex justify-between text-sm text-gray-900 uppercase">
 						Entrega:
-						<span>R$ <?= number_format($entrega, 2, ',', '.') ?></span>
+						<span>R$ <?= number_format($price_delivery, 2, ',', '.') ?></span>
                     </p>
 
                     <p class="flex justify-between text-sm font-semibold text-gray-900 uppercase">
                         Total:
-                        <span>R$ <?= number_format($subtotal + $entrega, 2, ',', '.') ?></span>
+                        <span>R$ <?= number_format($price_products + $price_delivery, 2, ',', '.') ?></span>
                     </p>
 
 					<x-button href='/sacola/entrega'>
