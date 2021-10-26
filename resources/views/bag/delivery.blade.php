@@ -9,13 +9,7 @@
             class="flex flex-col gap-8 md:flex-row">
             @csrf
 
-			<input name="city[id]" value="" type="hidden" />
 			<input name="city[ibge]" value="" type="hidden" />
-
-			<input name="state[id]" value="" type="hidden" />
-			<input name="state[ibge]" value="" type="hidden" />
-			<input name="state[description]" value="" type="hidden" />
-			<input name="state[region]" value="" type="hidden" />
 
             <aside class="md:w-2/3">
                 <div class="col-span-1">
@@ -167,4 +161,51 @@
     Inputmask({
         mask: '#####-###'
     }).mask(postalCode);
+
+	postalCode.addEventListener('keyup', function(event) {
+		const street = document.getElementById('street')
+		const complement = document.getElementById('complement')
+		const neighbour = document.getElementById('neighbour')
+		const city = document.getElementById('city')
+		const state = document.getElementById('state')
+
+		if (event.target.value.replaceAll('_', '').length === 9) {
+			fetch(`https://viacep.com.br/ws/${event.target.value}/json/`, {
+				mode: 'cors',
+			}).then(response => {
+				response.json().then(r => {
+					complement.value = r.complemento
+
+					street.value = r.logradouro
+					street.setAttribute('readonly', true)
+
+					neighbour.value = r.bairro
+					neighbour.setAttribute('readonly', true)
+
+					city.value = r.localidade
+					city.setAttribute('readonly', true)
+					document.querySelector("input[name^='city[ibge]']").value = r.ibge
+
+					state.value = r.uf
+					state.setAttribute('readonly', true)
+
+					document.getElementById('number').focus()
+				})
+			})
+		} else {
+			complement.value = ''
+
+			street.value = ''
+			street.setAttribute('readonly', false)
+
+			neighbour.value = ''
+			neighbour.setAttribute('readonly', false)
+
+			city.value = ''
+			city.setAttribute('readonly', false)
+
+			state.value = ''
+			state.setAttribute('readonly', false)
+		}
+	})
 </script>
