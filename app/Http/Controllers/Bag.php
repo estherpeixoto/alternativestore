@@ -42,15 +42,18 @@ class Bag extends Controller
 
 	public function storeAddress(Request $request)
 	{
-		dd([
-			str_replace('-', '', $request->postal_code),
-			$request->street,
-			$request->number,
-			$request->complement,
-			$request->neighbour,
-			$request->city,
-			$request->state,
-		]);
+		$address_id = Model::addAddress($request);
+
+		if (is_null($address_id)) {
+			return redirect('sacola/entrega')->with('error', 'Não foi possível gravar dados de entrega');
+		}
+
+		return redirect('sacola/pagamento');
+	}
+
+	public function payment()
+	{
+
 	}
 
 	public function store(Request $request)

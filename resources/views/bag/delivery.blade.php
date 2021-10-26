@@ -9,7 +9,7 @@
             class="flex flex-col gap-8 md:flex-row">
             @csrf
 
-			<input name="city[ibge]" value="" type="hidden" />
+			<input name="city[ibge]" value="{{ $address->ibge }}" type="hidden" />
 
             <aside class="md:w-2/3">
                 <div class="col-span-1">

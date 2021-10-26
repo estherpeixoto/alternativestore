@@ -35,12 +35,12 @@ Route::prefix('minha-conta')->group(function () {
 Route::prefix('sacola')->middleware('auth')->group(function () {
     Route::get('/', [Bag::class, 'index'])->name('sacola');
     Route::get('/entrega', [Bag::class, 'delivery']);
-    Route::post('/entrega', [Bag::class, 'storeAddress']);
+    Route::get('/pagamento', [Bag::class, 'payment']);
 
     Route::post('/adicionar', [Bag::class, 'store']);
     Route::delete('/remover/{id}', [Bag::class, 'destroy']);
-
     Route::post('/alterar-tamanho', [Bag::class, 'changeSize']);
+    Route::post('/entrega', [Bag::class, 'storeAddress']);
 });
 
 require __DIR__ . '/auth.php';
