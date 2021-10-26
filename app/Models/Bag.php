@@ -69,7 +69,7 @@ class Bag extends Model
 	public static function priceProducts()
 	{
 		return DB::table('order_items')
-			->where('order_id', session()->exists('order_id') ?? null)
+			->where('order_id', session('order_id') ?? null)
 			->sum('price');
 	}
 
