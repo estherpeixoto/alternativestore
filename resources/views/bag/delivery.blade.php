@@ -92,9 +92,9 @@
 
                         <x-input id="state"
                             type="text"
-                            name="state[abbreviation]"
+                            name="state"
                             maxlength="2"
-                            value="{{ $address->state ?? (old('state.abbreviation') ?? '') }}"
+                            value="{{ $address->state ?? (old('state') ?? '') }}"
                             required />
                     </div>
                 </div>
@@ -174,22 +174,35 @@
 				mode: 'cors',
 			}).then(response => {
 				response.json().then(r => {
-					complement.value = r.complemento
+					if (r.erro === true) {
+						changeModal({
+							state: 'error',
+							title: 'Erro',
+							description: 'Houve um erro. CEP não encontrado.',
+							secondaryButtonText: 'Voltar',
+						})
 
-					street.value = r.logradouro
-					street.setAttribute('readonly', true)
+						show()
 
-					neighbour.value = r.bairro
-					neighbour.setAttribute('readonly', true)
+						postalCode.value = ''
+					} else {
+						complement.value = r.complemento
 
-					city.value = r.localidade
-					city.setAttribute('readonly', true)
-					document.querySelector("input[name^='city[ibge]']").value = r.ibge
+						street.value = r.logradouro
+						street.setAttribute('readonly', true)
 
-					state.value = r.uf
-					state.setAttribute('readonly', true)
+						neighbour.value = r.bairro
+						neighbour.setAttribute('readonly', true)
 
-					document.getElementById('number').focus()
+						city.value = r.localidade
+						city.setAttribute('readonly', true)
+						document.querySelector("input[name^='city[ibge]']").value = r.ibge
+
+						state.value = r.uf
+						state.setAttribute('readonly', true)
+
+						document.getElementById('number').focus()
+					}
 				})
 			})
 		} else {
