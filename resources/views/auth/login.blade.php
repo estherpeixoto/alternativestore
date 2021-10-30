@@ -5,7 +5,9 @@
             @csrf
 			<x-title class="mb-10 text-xl">Fazer login</x-title>
 
-            <div class="flex items-center justify-center">
+			<x-alert />
+
+            <div class="flex items-center justify-center mt-3">
                 <x-button color="blue" fullWidth="true">
                     <x-facebook-logo class="mr-1" />
 

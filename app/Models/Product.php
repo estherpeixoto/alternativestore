@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ProductImage;
 use Illuminate\Support\Facades\DB;
 
 class Product extends Model
@@ -23,6 +22,8 @@ class Product extends Model
 		'price',
 		'visibility'
 	];
+
+	public $timestamps = true;
 
 	public static function price($price)
 	{

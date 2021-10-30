@@ -23,6 +23,8 @@ class ProductSize extends Model
 
 	public $incrementing = false;
 
+	public $timestamps = true;
+
 	public static function format($number)
 	{
 		return number_format(str_replace(',', '.', str_replace('.', '', $number)), 2, '.', '');
