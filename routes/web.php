@@ -39,7 +39,8 @@ Route::prefix('sacola')->middleware('auth')->group(function () {
 
     Route::post('/adicionar', [Bag::class, 'store']);
     Route::delete('/remover/{id}', [Bag::class, 'destroy']);
-    Route::post('/alterar-tamanho', [Bag::class, 'changeSize']);
+    Route::post('/alterar-tamanho', [Bag::class, 'changeItem']);
+    Route::post('/alterar-quantidade', [Bag::class, 'changeItem']);
     Route::post('/entrega', [Bag::class, 'storeAddress']);
 });
 
