@@ -1,43 +1,69 @@
-const csrf = document.querySelector("meta[name='csrf-token']").content
+const csrf = document.querySelector("meta[name='csrf-token']").content;
 
 const headers = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json, text-plain, */*',
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN': csrf,
-}
+    "Content-Type": "application/json",
+    Accept: "application/json, text-plain, */*",
+    "X-Requested-With": "XMLHttpRequest",
+    "X-CSRF-TOKEN": csrf,
+};
 
-function handleSubmit(event, id) {
-	const type = event.target.getAttribute('data-type')
+function handleSubmit(event, id, quantity = null) {
+    const type = event.target.getAttribute("data-type");
 
-    fetch(`/sacola/alterar-${type === 'size' ? 'tamanho' : 'quantidade'}`, {
-        method: 'post',
-        credentials: 'same-origin',
+    fetch(`/sacola/alterar-${type === "size" ? "tamanho" : "quantidade"}`, {
+        method: "post",
+        credentials: "same-origin",
         headers,
         body: JSON.stringify({
             _token: csrf,
             id,
-        	size_id: parseInt(event.target.value),
+			quantity,
+            size_id: parseInt(event.target.value),
         }),
-    }).then(response => {
-		if (response.ok) {
-			response.json().then(r => {
-				changeModal({
-					state: 'success',
-					title: 'OK',
-					description: (type === 'size' ? 'Tamanho' : 'Quantidade') + ' alterado com sucesso',
-					secondaryButtonText: 'OK',
-				})
-			})
-		} else {
-			changeModal({
-				state: 'error',
-				title: 'Erro',
-				description: 'Houve um erro. Por favor tente novamente mais tarde.',
-				secondaryButtonText: 'Voltar',
-			})
-		}
+    }).then((response) => {
+		return response.json()
+	}).then(json => {
+		updateFields(json.totals)
 
-		show()
-	})
+		changeModal({
+			state: "success",
+			title: "OK",
+			description: json.message,
+			secondaryButtonText: "OK",
+		});
+
+		show();
+    }).catch(error => {
+		changeModal({
+			state: "error",
+			title: "Erro",
+			description: error.message,
+			secondaryButtonText: "Voltar",
+		});
+
+		show();
+	});
+}
+
+function updateFields({ price_products, price_delivery, total }) {
+	document.getElementById('price_products').innerHTML = `R$ ${price_products}`
+	document.getElementById('price_delivery').innerHTML = `R$ ${price_delivery}`
+	document.getElementById('total').innerHTML = `R$ ${total}`
+}
+
+function decrease(event, product_id) {
+    let quantity = document.getElementById(`quantity${product_id}`);
+	const newValue = parseInt(quantity.value) - 1
+
+	if (newValue > 0) {
+		quantity.value = newValue;
+		setTimeout(handleSubmit(event, product_id, quantity.value), 6000);
+	}
+}
+
+function increase(event, product_id) {
+    let quantity = document.getElementById(`quantity${product_id}`);
+    quantity.value = parseInt(quantity.value) + 1;
+
+    setTimeout(handleSubmit(event, product_id, quantity.value), 6000);
 }

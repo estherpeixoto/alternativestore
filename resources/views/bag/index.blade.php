@@ -39,17 +39,15 @@
                                     </select>
 
                                     <div class="flex border border-gray-300 rounded-md w-min">
-                                        <button
-                                            class="p-1 text-xs text-center text-gray-500 transition duration-150 ease-in-out bg-transparent border-r border-gray-300 focus:outline-none rounded-l-md hover:bg-gray-50 focus:border-gray-300">
+                                        <button data-type="quantity" onclick="decrease(event, {{ $product->id }})" class="p-1 text-xs text-center text-gray-500 transition duration-150 ease-in-out bg-transparent border-r border-gray-300 focus:outline-none rounded-l-md hover:bg-gray-50 focus:border-gray-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
                                             </svg>
                                         </button>
 
-										<input class="items-center w-10 px-3 py-1 text-xs font-semibold text-center text-gray-500" value="{{ $product->quantity }}" />
+										<input id="quantity{{ $product->id }}" class="items-center w-10 px-3 py-1 text-xs font-semibold text-center text-gray-500" value="{{ $product->quantity }}" />
 
-                                        <button
-                                            class="p-1 text-xs text-center text-gray-500 transition duration-150 ease-in-out bg-transparent border-l border-gray-300 focus:outline-none rounded-r-md hover:bg-gray-50 focus:border-gray-300">
+                                        <button data-type="quantity" onclick="increase(event, {{ $product->id }})" class="p-1 text-xs text-center text-gray-500 transition duration-150 ease-in-out bg-transparent border-l border-gray-300 focus:outline-none rounded-r-md hover:bg-gray-50 focus:border-gray-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                                             </svg>
@@ -66,17 +64,17 @@
 
                     <p class="flex justify-between text-sm text-gray-900 uppercase">
                         Subtotal:
-                        <span>R$ <?= number_format($price_products, 2, ',', '.') ?></span>
+                        <span id="price_products">R$ <?= $totals->price_products ?></span>
                     </p>
 
                     <p class="flex justify-between text-sm text-gray-900 uppercase">
 						Entrega:
-						<span>R$ <?= number_format($price_delivery, 2, ',', '.') ?></span>
+						<span id="price_delivery">R$ <?= $totals->price_delivery ?></span>
                     </p>
 
                     <p class="flex justify-between text-sm font-semibold text-gray-900 uppercase">
                         Total:
-                        <span>R$ <?= number_format($price_products + $price_delivery, 2, ',', '.') ?></span>
+                        <span id="total">R$ <?= $totals->total ?></span>
                     </p>
 
 					<x-button href='/sacola/entrega'>

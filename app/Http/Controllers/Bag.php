@@ -19,25 +19,23 @@ class Bag extends Controller
 			session(['order_id' => $products[0]->order_id]);
 		}
 
-		$price_products = Model::priceProducts();
-		$price_delivery = Model::priceDelivery();
 		$sizes = Size::get();
+		$totals = Model::getTotals();
 
-		return view('bag/index', compact('products', 'sizes', 'price_products', 'price_delivery'));
+		return view('bag/index', compact('products', 'sizes', 'totals'));
 	}
 
 	public function delivery()
 	{
-		$price_products = Model::priceProducts();
+		$totals = Model::getTotals();
 
-		if ($price_products <= 0) {
+		if ($totals->price_products <= 0) {
 			return redirect('/sacola');
 		}
 
 		$address = Model::address();
-		$price_delivery = Model::priceDelivery();
 
-		return view('bag/delivery', compact('address', 'price_products', 'price_delivery'));
+		return view('bag/delivery', compact('address', 'totals'));
 	}
 
 	public function storeAddress(Request $request)
@@ -88,22 +86,31 @@ class Bag extends Controller
 		return redirect('/sacola')->with('error', 'Erro ao excluir produto');
 	}
 
-	public function changeSize(Request $request)
+	public function changeItem(Request $request)
 	{
-		if (isset($request->id) && isset($request->size_id)) {
+		if (isset($request->id)) {
 			$orderItem = OrderItem::where('id', $request->id)->first();
 
 			if ($orderItem) {
-				$orderItem->size_id = $request->size_id;
+				if (isset($request->size_id)) {
+					$orderItem->size_id = $request->size_id;
+				}
+
+				if (isset($request->quantity)) {
+					$orderItem->quantity = $request->quantity;
+				}
 
 				if ($orderItem->isDirty()) {
 					$orderItem->save();
 
-					return response()->json(['message' => 'Size changed with success'], 200);
+					return response()->json([
+						'message' => 'Item alterado com sucesso',
+						'totals' => Model::getTotals()
+					], 200);
 				}
 			}
 		}
 
-		return response()->json(['message' => 'Ops'], 400);
+		return response()->json(['message' => 'Houve um erro. Por favor tente novamente mais tarde.'], 400);
 	}
 }

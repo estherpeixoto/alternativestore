@@ -66,16 +66,18 @@ class Bag extends Model
 		);
 	}
 
-	public static function priceProducts()
+	public static function getTotals()
 	{
-		return DB::table('order_items')
-			->where('order_id', session('order_id') ?? null)
-			->sum('price');
-	}
+		$totals = DB::table('orders')
+			->where('id', [session('order_id') ?? null])
+			->get(['price_products', 'price_delivery', 'total'])
+			->first();
 
-	public static function priceDelivery()
-	{
-		return 0;
+		$totals->price_products = number_format($totals->price_products, 2, ',', '.');
+		$totals->price_delivery = number_format($totals->price_delivery, 2, ',', '.');
+		$totals->total = number_format($totals->total, 2, ',', '.');
+
+		return $totals;
 	}
 
 	public static function address()
