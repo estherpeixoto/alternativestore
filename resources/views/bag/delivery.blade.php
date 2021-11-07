@@ -6,7 +6,7 @@
 
         <form method="post"
             action="/sacola/entrega"
-            class="flex flex-col gap-8 md:flex-row">
+            class="flex flex-col h-full gap-8 md:flex-row">
             @csrf
 
 			<input name="city[ibge]" value="{{ $address->ibge }}" type="hidden" />
@@ -134,17 +134,17 @@
 
                 <p class="flex justify-between text-sm text-gray-900 uppercase">
                     Subtotal:
-                    <span>R$ <?= number_format($price_products, 2, ',', '.') ?></span>
+                    <span>R$ <?= $totals->price_products ?></span>
                 </p>
 
                 <p class="flex justify-between text-sm text-gray-900 uppercase">
                     Entrega:
-                    <span>R$ <?= number_format($price_delivery, 2, ',', '.') ?></span>
+                    <span>R$ <?= $totals->price_delivery ?></span>
                 </p>
 
                 <p class="flex justify-between text-sm font-semibold text-gray-900 uppercase">
                     Total:
-                    <span>R$ <?= number_format($price_products + $price_delivery, 2, ',', '.') ?></span>
+                    <span>R$ <?= $totals->total ?></span>
                 </p>
             </aside>
         </form>

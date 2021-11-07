@@ -5,7 +5,7 @@
 
             {{-- <x-title class="my-8 text-xl">Sacola</x-title> --}}
 
-            <div class="flex flex-col gap-8 md:flex-row">
+            <div class="flex flex-col h-full gap-8 md:flex-row">
                 <aside class="md:w-2/3">
                     @foreach ($products as $product)
                         <div class="flex items-center gap-4 pb-2 mb-2 border-b border-gray-100">
@@ -78,7 +78,7 @@
                     </p>
 
 					<x-button href='/sacola/entrega'>
-						Continuar
+						Finalizar compra
 						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
 						</svg>
