@@ -73,11 +73,11 @@ class Bag extends Model
 			->get(['price_products', 'price_delivery', 'total'])
 			->first();
 
-		$totals->price_products = number_format($totals->price_products, 2, ',', '.');
-		$totals->price_delivery = number_format($totals->price_delivery, 2, ',', '.');
-		$totals->total = number_format($totals->total, 2, ',', '.');
-
-		return $totals;
+		return (object) [
+			'price_products' => number_format($totals->price_products ?? 0, 2, ',', '.'),
+			'price_delivery' => number_format($totals->price_delivery ?? 0, 2, ',', '.'),
+			'total' => number_format($totals->total ?? 0, 2, ',', '.'),
+		];
 	}
 
 	public static function address()
