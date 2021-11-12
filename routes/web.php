@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\MyAccount;
 use App\Http\Controllers\Bag;
-use App\Http\Controllers\Services\PicPay;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +42,6 @@ Route::prefix('sacola')->middleware('auth')->group(function () {
     Route::post('/alterar-tamanho', [Bag::class, 'changeItem']);
     Route::post('/alterar-quantidade', [Bag::class, 'changeItem']);
     Route::post('/entrega', [Bag::class, 'storeAddress']);
-});
-
-Route::prefix('payment')->middleware('auth.payment')->group(function () {
-	Route::get('/', [PicPay::class, 'payment']);
-	/* Route::post('/checkout', [PicPay::class, 'index']);
-	Route::post('/notification', [PicPay::class, 'index']); */
 });
 
 require __DIR__ . '/auth.php';
