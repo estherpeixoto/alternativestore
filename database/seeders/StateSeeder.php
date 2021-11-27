@@ -15,7 +15,8 @@ class StateSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$response = Http::get('https://servicodados.ibge.gov.br/api/v1/localidades/estados');
+		$response = Http::withoutVerifying()
+			->get('https://servicodados.ibge.gov.br/api/v1/localidades/estados');
 
 		foreach ($response->object() as $state) {
 			DB::table('states')->insert([

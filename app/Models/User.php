@@ -52,6 +52,10 @@ class User extends Authenticatable
 		}
 	}
 
+	public static function cpf($cpf) {
+        return substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9);
+	}
+
 	public static function clearTelephone($telephone) {
 		return str_replace(' ', '', str_replace('(', '', str_replace(')', '', str_replace('-', '', $telephone))));
 	}

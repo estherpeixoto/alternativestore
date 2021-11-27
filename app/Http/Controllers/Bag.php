@@ -15,7 +15,7 @@ class Bag extends Controller
 	{
 		$products = Model::products();
 
-		if (!session()->exists('order_id')) {
+		if (!session()->exists('order_id') && isset($products[0])) {
 			session(['order_id' => $products[0]->order_id]);
 		}
 

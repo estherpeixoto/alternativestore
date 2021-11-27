@@ -5,7 +5,9 @@
 		<img class="block object-cover object-center w-auto rounded" src="{{ asset("/storage/products/$image") }}" />
 
         <h5 class="mt-3 font-medium text-gray-500">{{ $title }}</h5>
-        {{-- <h6 class="">{{ $category }}</h6> --}}
-        <span class="block font-semibold text-gray-800">{{ $price }}</span>
+
+        <span class="block font-semibold text-gray-800">
+            R$ {{ number_format($price, 2, ',', '.') }}
+        </span>
     </a>
 </div>

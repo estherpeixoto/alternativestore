@@ -1,0 +1,62 @@
+{{-- <fieldset class="p-5 border border-gray-400 rounded-md">
+                    <div>
+                        <input id="creditCard" type="radio" name="paymentMethod" class="mr-3" required
+                            checked />
+                        <label for="creditCard">Cartão de Crédito</label>
+                    </div>
+
+                    <div id="creditCard_container" class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="col-span-2">
+                            <x-label for="cardNumber" :value="__('Número do cartão')" />
+                            <x-input id="cardNumber" type="text" name="cardNumber" required autofocus />
+                        </div>
+
+                        <div class="col-span-1">
+                            <x-label for="date" :value="__('Data de vencimento')" />
+                            <x-input id="date" type="text" name="date" required />
+                        </div>
+
+                        <div class="col-span-1">
+                            <x-label for="cvv" :value="__('Código de verificação (CVV)')" />
+                            <x-input id="cvv" type="text" name="cvv" required />
+                        </div>
+
+                        <div class="col-span-1">
+                            <x-label for="date" :value="__('Nome impresso no cartão')" />
+                            <x-input id="date" type="text" name="date" required />
+                        </div>
+
+                        <div class="col-span-1">
+                            <x-label for="date" :value="__('CPF do titular')" />
+                            <x-input id="date" type="text" name="date" required />
+                        </div>
+
+                        <div class="col-span-2">
+                            <x-label for="date" :value="__('Forma de pagamento')" />
+                            <x-select id="date" type="text" name="date" required>
+                                <option value="1">À vista</option>
+                                <option value="2">2x sem juros</option>
+                                <option value="3">4x sem juros</option>
+                            </x-select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="p-5 mt-6 border border-gray-400 rounded-md">
+                    <div>
+                        <input id="ticket" type="radio" name="paymentMethod" class="mr-3" required />
+                        <label for="ticket">Boleto</label>
+                    </div>
+
+                    <div id="ticket_container" class="grid hidden grid-cols-2 gap-4 mt-6">
+                        <div class='col-span-1 p-4 bg-gray-100 rounded-md'>
+                            <span class='font-extrabold text-gray-700'>TOTAL DA SUA COMPRA</span><br>
+                            <span class='text-2xl font-black text-gray-700'>{{ $totals->total }}</span>
+                        </div>
+
+                        <div class='col-span-1 p-4 bg-green-100 rounded-md'>
+                            <span class='font-extrabold text-green-700'>PAGAMENTO VIA BOLETO</span><br>
+                            <span class='text-2xl font-black text-green-700'>{{ $totals->total }}</span>
+                        </div>
+                    </div>
+                </fieldset> --}}
