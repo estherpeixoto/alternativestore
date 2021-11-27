@@ -13,6 +13,26 @@ class Home extends Controller
 		return view('home', compact('products'));
 	}
 
+	public function sobrenos()
+	{
+		return view('aboutus');
+	}
+
+    public function contato()
+	{
+		return view('contact');
+	}
+
+    public function termos()
+	{
+		return view('terms');
+	}
+
+    public function politica()
+	{
+		return view('policy');
+	}
+
 	public function showProduct($category = '', $product = '')
 	{
 		// Produto

@@ -18,6 +18,12 @@ use App\Http\Controllers\Bag;
 
 Route::get('/', [Home::class, 'index'])->name('home');
 
+Route::get('/sobre-nos', [Home::class, 'sobrenos'])->name('sobre-nos');
+Route::get('/contato', [Home::class, 'contato'])->name('contato');
+Route::get('/termos', [Home::class, 'termos'])->name('termos');
+Route::get('/politica', [Home::class, 'politica'])->name('politica');
+
+
 Route::prefix('produtos')->group(function () {
     Route::get('/', [Home::class, 'index']);
     Route::get('/{category}', [Home::class, 'allProducts']);

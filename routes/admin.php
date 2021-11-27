@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ProductController as Product;
 use App\Http\Controllers\Admin\CategoryController as Category;
 use App\Http\Controllers\Admin\SizeController as Size;
 use App\Http\Controllers\Admin\UserController as User;
+use App\Http\Controllers\Admin\AccountController as Account;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->middleware(['auth'])
@@ -59,9 +60,13 @@ Route::prefix('dashboard')->middleware(['auth'])
 			Route::delete('/{id}', [User::class, 'destroy']);
 		});
 
-		Route::get('/minha-conta', function () {
-			return view('admin/account');
-		})->name('minha-conta');
+		Route::prefix('minha-conta')->group(function () {
+            Route::get('/', [Account::class, 'index'])->name('minha-conta');
+            Route::get('/dados', [Account::class, 'dados'])->name('dados');
+            Route::put('/{id}', [Account::class, 'edit']);
+			//return view('admin/account');
+
+        });
 
 		Route::get('/trocar-senha', function () {
 			return view('admin/change-password');

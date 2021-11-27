@@ -93,5 +93,4 @@
 
 <x-alert-modal />
 
-<script src="{{ asset('js/bag/http.js') }}"></script>
-<script src="{{ asset('js/bag/main.js') }}"></script>
+<script src="{{ asset('js/bag.js') }}"></script>

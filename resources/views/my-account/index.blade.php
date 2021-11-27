@@ -3,7 +3,7 @@
 		<x-title class="text-xl">Minha conta</x-title>
 
 		<a href='/minha-conta/pedidos'>Meus pedidos</a>
-		<a href='/minha-conta/dados'>Meus dados</a>
+		<a href="{{route('dados')}}">Meus dados</a>
 
 		<form method="POST" action="{{ route('logout') }}">
 			@csrf
