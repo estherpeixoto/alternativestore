@@ -39,8 +39,8 @@ class UserController extends Controller
 			'name' => $request->name,
 			'email' => $request->email,
 			'password' => Hash::make($request->password),
-			'cpf' => $request->cpf,
-			'telephone' => $request->telephone,
+			'cpf' => User::clearCpf($request->cpf),
+			'telephone' => User::clearTelephone($request->telephone),
 			'type' => 'A'
 		]);
 
@@ -59,8 +59,8 @@ class UserController extends Controller
 				$user->password = Hash::make($request->password);
 			}
 
-			$user->cpf = $request->cpf;
-			$user->telephone = $request->telephone;
+			$user->cpf = User::clearCpf($request->cpf);
+			$user->telephone = User::clearTelephone($request->telephone);
 
 			if ($user->isDirty()) {
 				$user->save();

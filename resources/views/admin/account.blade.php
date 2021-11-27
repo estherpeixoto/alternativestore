@@ -78,7 +78,7 @@ olá mundo <?= $account['cpf']; ?>
 				name="telephone"
 				value="{{ old('telephone') ?? $user->telephone ?? '' }}"
 				placeholder="(00) 0 0000-0000"
-				maxlength="11"
+				maxlength="15"
 				required
 			/>
 		</div>

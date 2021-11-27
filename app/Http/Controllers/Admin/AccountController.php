@@ -11,15 +11,12 @@ class AccountController extends Controller
 {
     public function index()
 	{
-
         //return view('admin/account');
         return view('my-account/index');
 	}
 
     public function dados()
 	{
-		
-
 		$account['id'] = Auth::user()->id;
         $account['nome'] = Auth::user()->name;
         $account['email'] = Auth::user()->email;

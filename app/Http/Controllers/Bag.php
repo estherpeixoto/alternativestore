@@ -51,7 +51,15 @@ class Bag extends Controller
 
 	public function payment()
 	{
+		$totals = Model::getTotals();
 
+		if ($totals->price_products <= 0) {
+			return redirect('/sacola');
+		}
+
+		$address = Model::address();
+
+		return view('bag/payment', compact('address', 'totals'));
 	}
 
 	public function store(Request $request)

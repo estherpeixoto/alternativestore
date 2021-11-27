@@ -6,12 +6,17 @@ use App\Http\Controllers\Admin\SizeController as Size;
 use App\Http\Controllers\Admin\UserController as User;
 use App\Http\Controllers\Admin\AccountController as Account;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::prefix('dashboard')->middleware(['auth'])
 	->group(function () {
 
 		Route::get('/', function () {
-			return view('admin/dashboard');
+			if (Auth::user()->type != 'C') {
+				return view('admin/dashboard');
+			} else {
+				return redirect('/dashboard/minha-conta/dados');
+			}
 		})->name('dashboard');
 
 		Route::prefix('pedidos')->group(function () {

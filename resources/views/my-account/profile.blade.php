@@ -1,8 +1,8 @@
 <x-app-layout>
 
-	<x-slot name='breadcrumbs'>
+	{{-- <x-slot name='breadcrumbs'>
 		{{ Breadcrumbs::render('users.form', $user->name ?? '') }}
-	</x-slot>
+	</x-slot> --}}
 
 	<x-slot name="header">
 		{{ __('Dados') }}
@@ -69,35 +69,9 @@
 <script src="https://raw.githubusercontent.com/RobinHerbots/Inputmask/5.x/dist/inputmask.min.js"></script>
 
 <script>
+	var selector = document.getElementById("telephone");
 
-
-
-    function masktel (){
-        var cCaractereDigitado = this.value;
-        alert ('adasa')
-
-        console.log(cCaractereDigitado)
-
-	    if( isNaN(cCaractereDigitado[cCaractereDigitado.length-1] )){
-	    	this.value = cCaractereDigitado.substring(0, cCaractereDigitado.length-1) ;
-	        return;
-	    }
-
-	    if( cCaractereDigitado.length === 1 ) this.value = "(" + this.value;
-
-	    if( cCaractereDigitado.length === 3 ) this.value = this.value + ") ";
-
-	    if( cCaractereDigitado[5] == 9 ){
-	    	this.maxLength = "15";
-	        if( cCaractereDigitado.length === 10 ) this.value = this.value + "-" ;
-
-
-	    }else{
-	    	this.maxLength = "14";
-	        if( cCaractereDigitado.length === 9 ) this.value = this.value + "-" ;
-
-	    }
-    }
-
-    document.querySelector("#telephone").addEventListener("input", masktel)
+	var im = new Inputmask("(99) 99999-9999");
+	console.log(im)
+	im.mask(selector);
 </script>
