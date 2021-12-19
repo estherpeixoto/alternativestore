@@ -45,7 +45,7 @@
 				name="cpf"
 				value="{{ isset($account['cpf']) ? $account['cpf'] : '' }}"
 				placeholder="000.000.000-00"
-				maxlength="11"
+				maxlength="14"
 				required
 				data-inputmask="'mask': '999.999.999-99'"
 			/>

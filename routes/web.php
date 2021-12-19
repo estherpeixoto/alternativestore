@@ -6,24 +6,12 @@ use App\Http\Controllers\MyAccount;
 use App\Http\Controllers\Bag;
 use App\Http\Controllers\Services\PicPay;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', [Home::class, 'index'])->name('home');
 
 Route::get('/sobre-nos', [Home::class, 'sobrenos'])->name('sobre-nos');
 Route::get('/contato', [Home::class, 'contato'])->name('contato');
 Route::get('/termos', [Home::class, 'termos'])->name('termos');
 Route::get('/politica', [Home::class, 'politica'])->name('politica');
-
 
 Route::prefix('produtos')->group(function () {
     Route::get('/', [Home::class, 'index']);
